@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: miller-pocketbase
+    env: docker
+    plan: free
+    autoDeploy: true
+    dockerfilePath: ./Dockerfile
+    disk:
+      name: data
+      mountPath: /pb/pb_data
+      sizeGB: 1
