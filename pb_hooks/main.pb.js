@@ -10,24 +10,24 @@ async function revalidate(e) {
   } catch (err) {
     console.error("Revalidate failed:", err);
   }
-  return e.next();
+  e.next();
 }
 
 // CREATE
-router.after(/collections\/(.*)\/records$/, async (c, e) => {
-  return revalidate(e);
+onRecordCreate(async (e) => {
+  await revalidate(e);
 });
 
 // UPDATE
-router.after(/collections\/(.*)\/records\/.*/, async (c, e) => {
+onRecordUpdate(async (e) => {
   const collectionName = e.record?.collection()?.name;
   if (collectionName !== "_authOrigins") {
     await utils.revalidateDevAndProd();
   }
-  return e.next();
+  e.next();
 });
 
 // DELETE
-router.after(/collections\/(.*)\/records\/.*/, async (c, e) => {
-  return revalidate(e);
+onRecordDelete(async (e) => {
+  await revalidate(e);
 });
