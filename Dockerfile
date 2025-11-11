@@ -2,7 +2,7 @@ FROM alpine:3.19
 
 WORKDIR /app
 
-# Always fetch the latest PocketBase binary you want (force no cache)
+# Force no cache when fetching PocketBase binary
 ADD --no-cache https://github.com/pocketbase/pocketbase/releases/download/v0.22.15/pocketbase_0.22.15_linux_amd64.zip pb.zip
 
 RUN unzip pb.zip && rm pb.zip
